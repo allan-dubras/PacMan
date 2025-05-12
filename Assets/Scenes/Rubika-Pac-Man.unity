@@ -8796,9 +8796,9 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: 0.00095510983
     y: 0
-    width: 1
+    width: 0.9971347
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -8935,10 +8935,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea62fc4b0b379cb4c87bd2e9ef49fd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InputActionsAsset: {fileID: -944628639613478452, guid: e3ff69e646cce094b9485999233a387b, type: 3}
-  CollisionMap: {fileID: 295851147}
-  TileSize: 8
-  Grid: {fileID: 1829510821}
+  inputActionsAsset: {fileID: -944628639613478452, guid: e3ff69e646cce094b9485999233a387b, type: 3}
+  collisionMap: {fileID: 295851147}
+  tileSize: 8
+  grid: {fileID: 1829510821}
   speedRaw: 256
 --- !u!4 &1305996097
 Transform:
@@ -8949,7 +8949,7 @@ Transform:
   m_GameObject: {fileID: 1305996095}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -38, y: -10, z: 0}
+  m_LocalPosition: {x: 13.9, y: -13.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
