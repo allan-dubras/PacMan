@@ -13,7 +13,7 @@ public class LogicGrid : MonoBehaviour
     {
         BuildGrid();
     }
-
+    
     public void BuildGrid()
     {
         var bounds = collisionMap.cellBounds;
