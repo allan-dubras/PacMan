@@ -25,6 +25,10 @@ public class PacManController : MonoBehaviour, IFixedTick
 
     private FixedPoint<Q8_8> _turnTargetX; // Cible X pour un virage anticipé
     private FixedPoint<Q8_8> _turnTargetY; // Cible Y pour un virage anticipé
+    public FixedVector2<Q8_8> CurrentDirection => _currentDir;
+
+    public FixedVector2<Q8_8> DesiredDir { get => _desiredDir; set => _desiredDir = value; }
+    public FixedVector2<Q8_8> CurrentDir { get => _currentDir; set => _currentDir = value; }
 
     public void Awake()
     {

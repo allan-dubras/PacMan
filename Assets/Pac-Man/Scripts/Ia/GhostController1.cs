@@ -22,10 +22,12 @@ namespace Ny
 
         private FixedVector2<Q8_8> _desiredDir = new FixedVector2<Q8_8>();           // Direction vers laquelle le joueur veut se diriger
         private FixedVector2<Q8_8> _currentDir = new FixedVector2<Q8_8>();
+        private FixedVector2<Q8_8> _lastDir = new FixedVector2<Q8_8>();
         private Vector3Int _nextCell;                                           // Cellule cible pour le virage
 
         protected Vector3Int _targetCell;
         [SerializeField] protected PacManController pacman;
+
 
 
         protected void Awake()
@@ -80,10 +82,10 @@ namespace Ny
             // 4) Choisir de la direction
             if (pos == center && atIntersection)
             {
-                
-                _desiredDir = BestDirection(cell, _currentDir, _targetCell);
 
-                if(_desiredDir != FixedVector2<Q8_8>.Zero)
+                _desiredDir = BestDirection(cell,_lastDir, _targetCell);
+
+                if (_desiredDir != FixedVector2<Q8_8>.Zero)
                 {
                     _currentDir = _desiredDir;
                 }
@@ -97,7 +99,7 @@ namespace Ny
             // Sinon, il se recentre sur la cellule actuelle (empeche de passer à travers un mur).
             if (_currentDir != FixedVector2<Q8_8>.Zero)
             {
-                
+
                 if (CanMove(cell, _currentDir))
                 {
                     SafeMode(_currentDir);
@@ -119,7 +121,7 @@ namespace Ny
 
                     _mover.Move(new FixedVector2<Q8_8>(moveX, moveY));
 
-                    if(CloseX && CloseY)
+                    if (CloseX && CloseY)
                     {
                         var newDir = BestDirection(cell, _currentDir, _targetCell);
                         if (newDir != FixedVector2<Q8_8>.Zero)
@@ -131,7 +133,6 @@ namespace Ny
                 }
             }
         }
-
         private FixedVector2<Q8_8> BestDirection(Vector3Int currentCell, FixedVector2<Q8_8> previousDir, Vector3Int targetCell)
         {
             FixedVector2<Q8_8> bestDir = new FixedVector2<Q8_8>();
@@ -162,13 +163,13 @@ namespace Ny
                 var dir = dirs[i];
 
                 // a) éliminer le demi-tour
-                if(dir == -previousDir)
+                if (dir == -previousDir)
                 {
                     continue;
                 }
 
                 // b) 
-                if(!CanMove(currentCell, dir))
+                if (!CanMove(currentCell, dir))
                 {
                     continue;
                 }
@@ -178,21 +179,17 @@ namespace Ny
                 int dx = voisin.x - targetCell.x;
                 int dy = voisin.y - targetCell.y;
                 int dist2 = dx * dx + dy * dy;
-
                 if (bestDir == FixedVector2<Q8_8>.Zero || dist2 < bestDist2)
                 {
                     bestDir = dir;
                     bestDist2 = dist2;
                 }
-
             }
 
+           
 
             return bestDir;
         }
-        
-
-        
 
         protected abstract Vector3Int CalculateTargetCell(Vector3Int cell);
 
@@ -238,6 +235,7 @@ namespace Ny
             #endregion
 
             _mover.Move(_currentDir * _speed);  // Déplacement simple d'un pas dans la direction actuelle
+            _lastDir = direction;
         }
 
         /// <summary>
@@ -246,6 +244,7 @@ namespace Ny
         private void LateUpdate()
         {
             _xf.ApplyToTransform(transform);
+
         }
 
         private void OnDrawGizmos()
